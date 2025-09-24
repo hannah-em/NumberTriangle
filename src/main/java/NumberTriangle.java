@@ -90,8 +90,16 @@ public class NumberTriangle {
      *
      */
     public int retrieve(String path) {
-        // TODO implement this method
-        return -1;
+
+        NumberTriangle current = this;
+        for (char c : path.toCharArray()) {
+            if (c == 'l') {
+                current = current.left;
+            } else if (c == 'r') {
+                current = current.right;
+            }
+        }
+        return current.root;
     }
 
     /** Read in the NumberTriangle structure from a file.
@@ -112,7 +120,7 @@ public class NumberTriangle {
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
 
 
-        // TODO define any variables that you want to use to store things
+
         List<List<NumberTriangle>> levels = new ArrayList<>();
 
         // will need to return the top of the NumberTriangle,
@@ -125,7 +133,7 @@ public class NumberTriangle {
             // remove when done; this line is included so running starter code prints the contents of the file
 
 
-            // TODO process the line
+
             String[] nums = line.trim().split("\\s+");
             List<NumberTriangle> row = new ArrayList<>();
             for (String num : nums) {
@@ -147,6 +155,9 @@ public class NumberTriangle {
             line = br.readLine();
         }
         br.close();
+        if (!levels.isEmpty()) {
+            top = levels.get(0).get(0);
+        }
         return top;
     }
 
